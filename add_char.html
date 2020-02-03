@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <title>DnD App</title>
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAQVSbtQdJpkAL367aG4jfyu-Y80do1siI",
+            authDomain: "dnd-app-e6448.firebaseapp.com",
+            databaseURL: "https://dnd-app-e6448.firebaseio.com",
+            projectId: "dnd-app-e6448",
+            storageBucket: "dnd-app-e6448.appspot.com",
+            messagingSenderId: "956423798217"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+</head>
+<body>
+    <div class="container-fluid d-flex bg-image" style="height:100vh;max-height:1920px;max-width:1080px;">
+        <div id="login_form" class="container-fluid-nopadding align-self-center">
+            <div class="row">
+                <div class="offset-5 col-2 ">
+                    <input class="form-control col-12" type="text" placeholder="Character name" id="name_field" style="min-width:150px;" />
+                </div>
+            </div>
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                <div class="offset-5 col-2 ">
+                    <img src="images/fantasy_button/create.png" class="col-12" onclick="add_character()" style="min-width:150px;" />
+                </div>
+            </div>
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                <div class="offset-5 col-2 ">
+                    <img src="images/fantasy_button/back.png" class="col-12" onclick="back()" style="min-width:150px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/add_char.js"></script>
+
+</body>
+</html>
