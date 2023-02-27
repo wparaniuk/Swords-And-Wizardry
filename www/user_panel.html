@@ -1,0 +1,238 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/hexagon.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <title>DnD App</title>
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAQVSbtQdJpkAL367aG4jfyu-Y80do1siI",
+            authDomain: "dnd-app-e6448.firebaseapp.com",
+            databaseURL: "https://dnd-app-e6448.firebaseio.com",
+            projectId: "dnd-app-e6448",
+            storageBucket: "dnd-app-e6448.appspot.com",
+            messagingSenderId: "956423798217"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+</head>
+<body>
+    <div class="container-fluid" style="height:100vh;max-height:1920px;max-width:1080px;">
+        <div class="row" style="justify-content:space-between;">
+            <div id="create">
+                <img src="images/fantasy_button/create.png" onclick="add_character()" />
+            </div>
+            <div id="reset">
+                <img src="images/fantasy_button/reset.png" onclick="modal('reset')" data-toggle="modal" data-target="#exampleModalCenter"/>
+            </div>
+            <div id="logout">
+                <img src="images/fantasy_button/logout.png" onclick="logout()" />
+            </div>
+        </div>
+        <div class="row" id="stats" style="display:none;">
+            <div class="col-12 container" style="background-color: rgba(0, 0, 0, 0.5);color:white;text-align:center">
+                <div class="row">
+                    <div class="col">
+                        <div class="row" style="border-bottom:solid #939393 1px;">
+                            <div class="col-1">Name:</div>
+                            <div class="col-1 offset-2"><span id="name" class="text-warning" trigger="click"></span></div>
+                        </div>
+                        <div class="row" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+                            <div class="col-1 text-white" style="line-height:200%;">STR</div>
+                            <div class="col-1 offset-1">
+                                <div class="hexagon"><span id="str" class="text-dark"></span></div>
+                            </div>
+                            <div class="col-1">
+                                <div class="hexagon"><span id="str_modifier" class="text-dark"></span></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1 text-white" style="line-height:200%;">DEX</div>
+                            <div class="col-1 offset-1">
+                                <div class="hexagon"><span id="dex" class="text-dark"></span></div>
+                            </div>
+                            <div class="col-1">
+                                <div class="hexagon"><span id="dex_modifier" class="text-dark"></span></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1 text-white" style="line-height:200%;">INT</div>
+                            <div class="col-1 offset-2">
+                                <div class="hexagon"><span id="int" class="text-dark"></span></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1 text-white" style="line-height:200%;">WIS</div>
+                            <div class="col-1 offset-2">
+                                <div class="hexagon"><span id="wis" class="text-dark"></span></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1 text-white" style="line-height:200%;">CON</div>
+                            <div class="col-1 offset-2">
+                                <div class="hexagon"><span id="con" class="text-dark"></span></div>
+                            </div>
+                        </div>
+                        <div class="row" style="border-bottom:solid #939393 1px;">
+                            <div class="col-1 text-white" style="line-height:200%;">CHA</div>
+                            <div class="col-1 offset-2">
+                                <div class="hexagon"><span id="char" class="text-dark"></span></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1">Equipment:</div>
+                            <div class="popup col-1 offset-6">
+                                <span class="text-warning font-weight-bold" onclick="modal('add_item')" data-toggle="modal" data-target="#exampleModalCenter">+</span>
+                                <input type="text" class="popuptext" id="eq_Popup" value="">
+                                <span style="margin-top:50px;color:orange;" class="popuptext" id="eq_Popup2" onclick="add_item();popup('eq_Popup', 'eq_Popup2') ">Add</span>
+                            </div>
+                            <div class="popup col-1" style="margin-left:50px;">
+                                    <span style="color:orange;" class="popuptext" id="delete_popup">Delete</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1" style="font-size:12px;">
+                                <ul id="eq_list" class="col-1" style="list-style-type:none;white-space: nowrap;">
+                                    <!--List updated automatically by user_panel.js-->
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row" style="border-bottom:solid #939393 1px;">
+                            <div class="col-1">Level:</div>
+                            <div class="col-1 offset-2"><span id="level" class="text-warning"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1 text-white" style="line-height:200%;">HP</div>
+                            <div class="col-1 offset-2">
+                                <div class="hexagon"><span id="health_points" class="text-dark"></span></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1 text-white" style="line-height:200%;">ST</div>
+                            <div class="col-1 offset-2">
+                                <div class="hexagon"><span id="defensive_throw" class="text-dark"></span></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1 text-white" style="line-height:200%;">AC</div>
+                            <div class="col-1 offset-2">
+                                <div class="hexagon"><span id="armor_class" class="text-dark"></span></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1 text-white" style="line-height:200%;">ATK</div>
+                            <div class="col-1 offset-1">
+                                <div class="hexagon"><span id="attack" class="text-dark">1d6</span></div>
+                            </div>
+                            <div class="col-1 ">
+                                <div class="hexagon"><span id="atk_modifier" class="text-dark"></span></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1">
+                                Weapon:
+                                <span id="weapon" class="text-warning" onclick="modal('weapon')" data-toggle="modal" data-target="#exampleModalCenter"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row" style="border-bottom:solid #939393 1px;">
+                            <div class="col-1">Class:</div>
+                            <div class="col-1 offset-2" id="class_choosen">
+                                <span id="class" class="text-warning"></span>
+                            </div>
+                            <div class="popup col-1 offset-2" id="class_to_choose">
+                                <span id="class1" class="text-warning" onclick="modal('class')" data-toggle="modal" data-target="#exampleModalCenter"></span>
+                            </div>
+                        </div>
+                        <div class="row" style="border-bottom:solid #939393 1px;">
+                            <div class="col-1">Race:</div>
+                            <div class="col-1 offset-2" id="race_choosen">
+                                <span id="race" class="text-warning"></span>
+                            </div>
+                            <div class="col-1 offset-2" id="race_to_choose">
+                                <span id="race1" class="text-warning" onclick="modal('race')" data-toggle="modal" data-target="#exampleModalCenter"></span>
+                            </div>
+                        </div>
+                        <div class="row" style="border-bottom:solid #939393 1px;">
+                            <div class="col-1">EXP:</div>
+                            <div class="col-1 offset-2" >
+                                <span id="experience" class="text-primary"  onclick="modal('exp')" data-toggle="modal" data-target="#exampleModalCenter"></span>
+                            </div>
+                        </div>
+                        <div class="row" style="border-bottom:solid #939393 1px;">
+                            <div class="col-1">Gold:</div>
+                            <div class="col-1 offset-2">
+                                <span id="gold" class="text-primary" onclick="modal('gold')" data-toggle="modal" data-target="#exampleModalCenter"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1">Spells:</div>
+                        </div>
+                        <div class="row">
+                            <div class="col" style="font-size:12px;"><p id="spells" class="text-primary"></p></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" style="background-color: rgba(46, 33, 33, 0.99);color:white;">
+                    <div class="modal-header text-center" style="border-bottom:none;">
+                        <h4 class="modal-title" id="modal_Title"></h4>
+                    </div>
+                    <div id="modal_Body" class="modal-body text-center">
+                        <div id="modal_Race" class="col" style="display:none;">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="pick_race('Elf')">Elf</button><br /><br />
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="pick_race('Dwarf')">Dwarf</button><br /><br />
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="pick_race('Halfling')">Halfling</button>
+                        </div>
+                        <div id="modal_Class" class="col" style="display:none;">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="class_fighter()">Fighter</button><br /><br />
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="class_cleric()">Cleric</button><br /><br />
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="class_wizard()">Wizard</button>
+                        </div>
+                        <div id="modal_Dropdown" class="dropdown" style="display:none;">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Choose weapon
+                            </button>
+                            <div id="modal_Dropdown-menu" class="dropdown-menu text-center" style="position: absolute;left: 50%;margin-left:-70px;" aria-labelledby="dropdownMenuButton">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="modal_Footer" class="modal-body">
+                        <button id="accept_button" type="button" class="btn btn-success center-inner" data-dismiss="modal">OK</button>
+                        <button type="button" class="btn btn-danger float-right" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    <script src="scripts/user_panel.js"></script>
+
+</body>
+</html>
