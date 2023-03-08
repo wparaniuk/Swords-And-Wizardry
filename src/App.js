@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { Login } from "./pages/Login.js";
 import { Register } from "./pages/Register.js";
@@ -7,26 +7,26 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import './scripts/Firebase.js';
 
 function App() {
-  const auth = getAuth();
-  const user = auth.currentUser;
   const [currentForm, setCurrentForm] = useState('login');
 
   const toggleForm = (formName) => {
     setCurrentForm(formName);
   }
 
-  //onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is logged in
-      setCurrentForm('logged');
-      console.log('logged in app.js');
-    }
-    else {
-      // User is signed out
-      () => setCurrentForm('login');
-      console.log("not logged in app.js");
-    }
-  //});
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is logged in
+        setCurrentForm('logged');
+      }
+      else {
+        // User is signed out
+        setCurrentForm('login');
+      }
+      });
+      return unsubscribe;
+    }, []);
 
   return (
     <div className="App">

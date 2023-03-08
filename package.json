@@ -5,7 +5,6 @@
   "description": "A sample Apache Cordova application that responds to the deviceready event.",
   "main": "index.js",
   "homepage": "./",
-  "type": "module",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -19,9 +18,7 @@
   "author": "Apache Cordova Team",
   "license": "Apache-2.0",
   "cordova": {
-    "platforms": [
-      "android"
-    ]
+    "platforms": []
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",

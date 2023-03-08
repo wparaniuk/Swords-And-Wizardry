@@ -3,6 +3,7 @@ import { getAuth, signOut } from "firebase/auth";
 
 export const User_Panel = (props) => {
   const auth = getAuth();
+  const user = auth.currentUser;
 
   const logout = () =>
   {
@@ -15,7 +16,7 @@ export const User_Panel = (props) => {
 
   return (
     <div className="auth-form-container">
-        <h2>Logged as: todo</h2>
+        <h2>Logged as: <p className="blue">{user.email}</p></h2>
 
         <button className="link-btn" onClick={logout}>Logout</button>
     </div>
