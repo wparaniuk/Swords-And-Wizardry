@@ -1,0 +1,81 @@
+﻿body {
+    background-image: url('../images/backgrounds/bg_1.jpg');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.container-fluid-nopadding {
+    width: 150px;
+    padding-right: 175px !important;
+    padding-left: 0;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#logged_div {
+    display: none;
+}
+
+.border-red {
+    border:3px red solid;
+}
+.border-blue {
+    border: 3px blue solid;
+}
+.border-pink {
+    border: 3px pink solid;
+}
+
+/* Popup container */
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+    /* The actual popup (appears on top) */
+    .popup .popuptext {
+        visibility: hidden;
+        width: 160px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 8px 0;
+        position: absolute;
+        z-index: 2;
+        top: 125%;
+        left: 50%;
+        margin-left: -80px;
+    }
+ 
+    /* Toggle this class when clicking on the popup container (hide and show the popup) */
+    .popup .show {
+        visibility: visible;
+        -webkit-animation: fadeIn 1s;
+        animation: fadeIn 1s
+    }
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
