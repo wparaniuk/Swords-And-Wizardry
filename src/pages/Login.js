@@ -20,15 +20,15 @@ export const Login = (props) => {
         <h2>Login</h2>
         <form className="login-form" onSubmit={handleSubmit}>
             <label htmlFor="email">Email:</label>
-            <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Youremail@gmail.com" id="email" name="email" />
+            <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="email@gmail.com" id="email" name="email" />
 
-            <label htmlFor="password">Password:</label>
-            <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Type Password" id="password" name="password" />
+            <label htmlFor="password">Hasło:</label>
+            <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Wpisz Hasło" id="password" name="password" />
             
-            <button className="btn-in-form" type="submit">Login</button>
+            <button className="btn-in-form" type="submit">Zaloguj</button>
         </form>
 
-        <button className="link-btn" onClick={() => props.onFormSwitch('register')}>Register Here</button>
+        <button className="link-btn" onClick={() => props.onFormSwitch('register')}>Rejestracja Tutaj</button>
     </div>
   );
 }

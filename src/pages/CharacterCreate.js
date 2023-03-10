@@ -10,15 +10,15 @@ export const CharacterCreate = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     //Create character data
-    var char = Math.floor(Math.random() * 15) + 3;
-    var con = Math.floor(Math.random() * 15) + 3;
-    var dex = Math.floor(Math.random() * 15) + 3;
-    var int = Math.floor(Math.random() * 15) + 3;
-    var str = Math.floor(Math.random() * 15) + 3;
-    var wis = Math.floor(Math.random() * 15) + 3;
-    var char = Math.floor(Math.random() * 15) + 3;
-    var gold = (Math.floor(Math.random() * 15) + 3) * 10;
-    var hp = Math.floor(Math.random() * 5) + 1;
+    var char = Math.floor(Math.random() * (19 - 3) + 3);
+    var con = Math.floor(Math.random() * (19 - 3) + 3);
+    var dex = Math.floor(Math.random() * (19 - 3) + 3);
+    var int = Math.floor(Math.random() * (19 - 3) + 3);
+    var str = Math.floor(Math.random() * (19 - 3) + 3);
+    var wis = Math.floor(Math.random() * (19 - 3) + 3);
+    var char = Math.floor(Math.random() * (19 - 3) + 3);
+    var gold = (Math.floor(Math.random() * (19 - 3) + 3)) * 10;
+    var hp = 0; // It need to be rolled again when the class is choosen and every new level
     var ac = 10;
     var dex_modifier = "0"; var str_modifier = "0"; var atk_modifier = "0";
     con <= 8 ? hp = hp - 1 : con >= 13 ? hp = hp + 1 : hp // Condition modifier

@@ -18,13 +18,13 @@ export const CharacterChooseMenu = (props) => {
           : isCharCreated === 'no' ?
           (
             <>
-            <span>No characters, to proceed please create a new one:</span>
-            <button className="btn-in-form" onClick={() => props.onPageSwitch('characterCreate')}>Create Character</button>
+            <span>Brak postaci, aby kontynuować musisz stworzyć nową:</span>
+            <button className="btn-in-form" onClick={() => props.onPageSwitch('characterCreate')}>Stwórz postać</button>
             </>
           )
           : 
           (
-            <span>Choose Character:
+            <span>Wybierz postać:
               <button className="link-btn" onClick={() => props.onPageSwitch('characterShow')}>{props.data.name}</button>
             </span>
           )

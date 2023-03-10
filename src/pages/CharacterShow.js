@@ -1,42 +1,33 @@
 import React, { useEffect, useState } from "react";
+import { ChooseClassRace } from './ChooseClassRace.js'
 
 export const CharacterShow = (props) => {
-  const [isCharReady, setIsCharReady] = useState([]);
+  const [missingChoices, setMissingChoices] = useState('');
+  const [charData, setCharData] = useState(props.data);
+
+  const handleDataChange = (statsFromChooseRace) => {
+    setCharData(statsFromChooseRace);
+  }
 
   useEffect(() => {
-    //Check if race or class are 'None'
-    Object.keys(props.data).forEach((key) => {
-      if (key === 'class') {
-        if (props.data[key] === 'None') {
-          !isCharReady.includes(key) ? setIsCharReady([...isCharReady, key]) : null;
-        }
-        else {
-          const filteredIsCharReady = isCharReady.filter(item => item !== key);
-          setIsCharReady(filteredIsCharReady);
-        }
-      }
-      if (key === 'race') {
-        if (props.data[key] === 'None') {
-          !isCharReady.includes(key) ? setIsCharReady([...isCharReady, key]) : null;
-        }
-        else {
-          const filteredIsCharReady = isCharReady.filter(item => item !== key);
-          setIsCharReady(filteredIsCharReady);
-        }
-      }
-    });
-  }, [props.data,]);
+    const { class: charClass = "", race: charRace = "" } = charData;
 
-  console.log(isCharReady);
+    if (charClass === 'None' || charRace === 'None') {
+      setMissingChoices('yes');
+    }
+    else {
+      setMissingChoices('no');
+      props.handleUpdate(charData);
+    }
+  }, [charData, ]);
 
   return (
     <>
       {
-        isCharReady.length === 2 ? <span>You need to choose <strong>{isCharReady[0] + ' and ' + isCharReady[1]}</strong> first.</span>
-        : isCharReady.length === 1 ? <span>You need to choose <strong>{isCharReady[0]}</strong> first.</span>
-        : <></>
+        missingChoices === 'yes' ? <ChooseClassRace missingChoices={missingChoices} data={props} handleDataChange={handleDataChange} />
+        : <span>aaaaa</span>
       }
-      <button className="btn-in-form" onClick={() => props.onPageSwitch('characterChooseMenu')}>Go Back</button>
+      <button className="btn-in-form" onClick={() => props.onPageSwitch('characterChooseMenu')}>Powrót</button>
     </>
   );
 }

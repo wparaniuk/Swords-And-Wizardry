@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getAuth, signOut } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc  } from "firebase/firestore";
 import { db } from '../scripts/Firebase.js';
 import { CharacterChooseMenu } from '../pages/CharacterChooseMenu.js';
 import { CharacterShow } from '../pages/CharacterShow.js';
@@ -33,6 +33,11 @@ export const User_Panel = () => {
     unsubscribe;
   }, [dataReload,]);
 
+  const handleUpdate = async (newData) => {
+    const docRef = doc(db, "characters", user.email);
+    await updateDoc(docRef, newData);
+  };
+
   const logout = () =>
   {
     signOut(auth).then(() => {
@@ -44,17 +49,17 @@ export const User_Panel = () => {
 
   return (
     <div className="auth-form-container">
-        <h2>Logged as: <span className="blue">{user.email}</span></h2>
+        <h2>Zalogowany jako: <span className="blue">{user.email}</span></h2>
 
         {
           currentPage === 'characterChooseMenu' && data != null ? <CharacterChooseMenu onPageSwitch={toggleCurrentPage} data={data} />
           : currentPage === 'characterChooseMenu' && data === null ? <></>
           : currentPage === 'characterCreate' ? <CharacterCreate onPageSwitch={toggleCurrentPage} db={db} onDataChange={toggledataReload} />
-          : currentPage === 'characterShow' ? <CharacterShow onPageSwitch={toggleCurrentPage} data={data} />
+          : currentPage === 'characterShow' ? <CharacterShow onPageSwitch={toggleCurrentPage} data={data} handleUpdate={handleUpdate} />
           : console.log('Error: not programmed currentPage: ' + currentPage)
         }
 
-        <button className="link-btn" onClick={logout}>Logout</button>
+        <button className="link-btn" onClick={logout}>Wyloguj</button>
     </div>
   );
 }
