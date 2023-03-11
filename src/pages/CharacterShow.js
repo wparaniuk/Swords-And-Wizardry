@@ -18,9 +18,10 @@ export const CharacterShow = (props) => {
     }
     else {
       setMissingChoices('no');
-      props.handleUpdate(charData);
+      
       //props.onDataChange();
     }
+    props.handleUpdate(charData);
   }, [charData, ]);
 
   return (

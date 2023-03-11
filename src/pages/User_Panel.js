@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getAuth, signOut } from "firebase/auth";
-import { doc, getDoc, updateDoc  } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc  } from "firebase/firestore";
 import { db } from '../scripts/Firebase.js';
 import { CharacterChooseMenu } from '../pages/CharacterChooseMenu.js';
 import { CharacterShow } from '../pages/CharacterShow.js';
@@ -12,9 +12,14 @@ export const User_Panel = () => {
   const [currentPage, setCurrentPage] = useState('characterChooseMenu');
   const [data, setData] = useState(null);
   const [dataReload, setDataReload] = useState(null);
+  const [refreshComponent, setRefreshComponent] = useState(false);
 
   const toggledataReload = (dataReload) => {
     setDataReload(dataReload);
+  }
+
+  const handleRefresh = () => {
+    setRefreshComponent(!refreshComponent);
   }
 
   const toggleCurrentPage = (currentPage) => {
@@ -22,16 +27,22 @@ export const User_Panel = () => {
   }
 
   //Check if character exists in 'characters' collection for specific user.email
-  useEffect(() =>{
-    const unsubscribe = getDoc(doc(db, "characters", user.email)).then(docSnap => {
+  useEffect(() => {
+    const docRef = doc(db, "characters", user.email);
+  
+    const unsubscribe = onSnapshot(docRef, (docSnap) => {
       if (docSnap.exists()) {
         setData(docSnap.data());
+        handleRefresh();
       } else {
-        setData('');
+        setData("");
       }
-    })
-    unsubscribe;
-  }, [dataReload,]);
+    });
+  
+    return () => {
+      unsubscribe();
+    };
+  }, [user.email, db]);
 
   const handleUpdate = async (newData) => {
     const docRef = doc(db, "characters", user.email);
@@ -55,7 +66,7 @@ export const User_Panel = () => {
           currentPage === 'characterChooseMenu' && data != null ? <CharacterChooseMenu onPageSwitch={toggleCurrentPage} data={data} />
           : currentPage === 'characterChooseMenu' && data === null ? <></>
           : currentPage === 'characterCreate' ? <CharacterCreate onPageSwitch={toggleCurrentPage} db={db} onDataChange={toggledataReload} />
-          : currentPage === 'characterShow' ? <CharacterShow onPageSwitch={toggleCurrentPage} data={data} handleUpdate={handleUpdate} onDataChange={toggledataReload}  />
+          : currentPage === 'characterShow' ? <CharacterShow onPageSwitch={toggleCurrentPage} data={data} handleUpdate={handleUpdate} onDataChange={toggledataReload} refresh={refreshComponent} />
           : console.log('Error: not programmed currentPage: ' + currentPage)
         }
 

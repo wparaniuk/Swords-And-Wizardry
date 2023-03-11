@@ -18,6 +18,7 @@ export const CharacterCreate = (props) => {
     var wis = Math.floor(Math.random() * (19 - 3) + 3);
     var char = Math.floor(Math.random() * (19 - 3) + 3);
     var gold = (Math.floor(Math.random() * (19 - 3) + 3)) * 10;
+    let new_level = 1, old_level = 1;
     var hp = 0; // It need to be rolled again when the class is choosen and every new level
     var ac = 10;
     var dex_modifier = "0"; var str_modifier = "0"; var atk_modifier = "0";
@@ -47,9 +48,6 @@ export const CharacterCreate = (props) => {
       defensive_throw: 0,
       condition: con,
       dexterity: dex,
-      dex_modifier: dex_modifier,
-      str_modifier: str_modifier,
-      atk_modifier: atk_modifier,
       inteligence: int,
       charisma: char,
       strenght: str,
@@ -57,9 +55,10 @@ export const CharacterCreate = (props) => {
       experience: 0,
       gold: gold,
       health_points: hp,
-      level: 1,
       race: "None",
       weapon: "None",
+      new_level: new_level,
+      old_level: old_level,
       uid: user.uid,
     }).then(function() {
       //Character created

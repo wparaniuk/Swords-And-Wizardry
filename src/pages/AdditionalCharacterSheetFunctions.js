@@ -17,7 +17,6 @@ export const calculateLevel = (exp, charClass) => {
       level = lvl;
     }
   });
-
   return level;
 }
 
@@ -41,8 +40,32 @@ export const calculateHealth = (currentHealth, charClass, exp) => {
 			}
     }
 	})
-	console.log('currentHealth ' + currentHealth);
-	console.log('result ' + result);
 	if (result >= currentHealth) return result;
 	else return currentHealth;
+}
+
+export const calculateRO = (exp, charClass) => {
+	if (charClass == 'None') return 1;
+  const levels = LEVEL_MATRIX[charClass];
+  let ro = 1;
+
+  levels.forEach(([minExp, maxExp, lvl, dices, atk, roVal]) => {
+    if (exp >= minExp && exp < maxExp) {
+      ro = roVal;
+    }
+  });
+  return ro;
+}
+
+export const calculateAtk = (exp, charClass) => {
+	if (charClass == 'None') return 1;
+  const levels = LEVEL_MATRIX[charClass];
+  let attack = 1;
+
+  levels.forEach(([minExp, maxExp, lvl, dices, atkVal, roVal]) => {
+    if (exp >= minExp && exp < maxExp) {
+      attack = atkVal;
+    }
+  });
+  return attack;
 }

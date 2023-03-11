@@ -43,7 +43,6 @@ export const ChooseClassRace = (props) => {
   const handleClick = () => {
     const health = calculateHealth(0, charClass, 0);
     charData.health_points = health
-    console.log(charData);
     props.handleDataChange(charData);
   };
 
