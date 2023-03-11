@@ -1,7 +1,8 @@
-import userEvent from "@testing-library/user-event";
 import React, { useEffect, useState, useRef } from "react";
 import '../css/CharacterSheet.css'
 import * as addFun from './AdditionalCharacterSheetFunctions.js'
+import { SPELLS_LIST } from "./SpellsList";
+import { showSpellDesc } from "./SpellsDescriptions";
 
 export const CharacterSheet = (props) => {
   const [showTextBox, setShowTextBox] = useState(false);
@@ -165,6 +166,11 @@ export const CharacterSheet = (props) => {
       <div className="row space-evenly">
         <div className="column border1">
           <span>Zaklęcia:</span>
+          {
+            SPELLS_LIST[charData.class][addFun.calculateLevel(charData.experience, charData.class)-1].map((spell, index) => (
+              <span key={index} onClick={console.log(showSpellDesc(spell))}>{spell}</span>
+            ))
+          }
         </div>
         <div className="column border1">
           <span>Inne:</span>
