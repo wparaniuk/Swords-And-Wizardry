@@ -63,7 +63,6 @@ export const CharacterCreate = (props) => {
       uid: user.uid,
     }).then(function() {
       //Character created
-      console.log('Created');
       props.onDataChange('reload')
       props.onPageSwitch('characterChooseMenu');
     }).catch(function (error) {

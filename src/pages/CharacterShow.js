@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ChooseClassRace } from './ChooseClassRace.js'
+import { CharacterSheet } from './CharacterSheet.js'
 
 export const CharacterShow = (props) => {
   const [missingChoices, setMissingChoices] = useState('');
@@ -18,6 +19,7 @@ export const CharacterShow = (props) => {
     else {
       setMissingChoices('no');
       props.handleUpdate(charData);
+      //props.onDataChange();
     }
   }, [charData, ]);
 
@@ -25,9 +27,12 @@ export const CharacterShow = (props) => {
     <>
       {
         missingChoices === 'yes' ? <ChooseClassRace missingChoices={missingChoices} data={props} handleDataChange={handleDataChange} />
-        : <span>aaaaa</span>
+        : <CharacterSheet data={props} handleDataChange={handleDataChange} />
       }
-      <button className="btn-in-form" onClick={() => props.onPageSwitch('characterChooseMenu')}>Powrót</button>
+      <button className="btn-in-form" onClick={() => {
+        props.onPageSwitch('characterChooseMenu')
+        props.onDataChange();
+        }}>Powrót</button>
     </>
   );
 }

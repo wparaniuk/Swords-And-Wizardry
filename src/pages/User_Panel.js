@@ -55,7 +55,7 @@ export const User_Panel = () => {
           currentPage === 'characterChooseMenu' && data != null ? <CharacterChooseMenu onPageSwitch={toggleCurrentPage} data={data} />
           : currentPage === 'characterChooseMenu' && data === null ? <></>
           : currentPage === 'characterCreate' ? <CharacterCreate onPageSwitch={toggleCurrentPage} db={db} onDataChange={toggledataReload} />
-          : currentPage === 'characterShow' ? <CharacterShow onPageSwitch={toggleCurrentPage} data={data} handleUpdate={handleUpdate} />
+          : currentPage === 'characterShow' ? <CharacterShow onPageSwitch={toggleCurrentPage} data={data} handleUpdate={handleUpdate} onDataChange={toggledataReload}  />
           : console.log('Error: not programmed currentPage: ' + currentPage)
         }
 

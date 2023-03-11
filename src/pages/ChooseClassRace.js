@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { calculateHealth } from './AdditionalCharacterSheetFunctions.js'
 
 const Dropdown = ({ options, value, onChange }) => {
   return (
@@ -39,6 +40,13 @@ export const ChooseClassRace = (props) => {
     setCharData(updatedCharData);
   };
 
+  const handleClick = () => {
+    const health = calculateHealth(0, charClass, 0);
+    charData.health_points = health
+    console.log(charData);
+    props.handleDataChange(charData);
+  };
+
   const classesOptions = classes.map((choice) => ({
     value: choice,
     label: choice,
@@ -51,14 +59,11 @@ export const ChooseClassRace = (props) => {
 
   return (
     <>
-      {
-        props.missingChoices === 'yes' ? (
-          <>
             <span>Musisz najpierw wybrać <strong>klasę/rasę</strong>.</span>
             <div>
               <Dropdown options={classesOptions} value={charClass} onChange={handleClassSelect} />
               <Dropdown options={racesOptions} value={charRace} onChange={handleRaceSelect} />
-              <button className="" onClick={() => props.handleDataChange(charData)}>Zatwierdź</button>
+              <button className="" onClick={handleClick}>Zatwierdź</button>
             </div>
             <p></p>
             <div>
@@ -70,9 +75,6 @@ export const ChooseClassRace = (props) => {
               <p>Siła: {strenght}</p>
               <p>Mądrość: {wisdom}</p>
             </div>
-          </>
-        ) : <span>Wybranooooooooooooooo</span>
-      }
     </>
   );
 }
