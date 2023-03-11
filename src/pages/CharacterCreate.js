@@ -24,18 +24,14 @@ export const CharacterCreate = (props) => {
     var dex_modifier = "0"; var str_modifier = "0"; var atk_modifier = "0";
     con <= 8 ? hp = hp - 1 : con >= 13 ? hp = hp + 1 : hp // Condition modifier
     if (dex <= 8) { // Dexterity modifier
-        ac = ac - 1;
         dex_modifier = "-1";
     } else if (dex >= 13) {
-        ac = ac + 1;
         dex_modifier = "+1";
     }
     if (str <= 8) { // Strenght modifier
-        ac = ac - 1;
         str_modifier = "-1";
         atk_modifier = "-1";
     } else if (str >= 13) {
-        ac = ac + 1;
         str_modifier = "+1";
         atk_modifier = "+1";
     }
