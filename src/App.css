@@ -12,7 +12,8 @@ html, body {
   background-image: url('./images/backgrounds/bg_1.jpg');
   background-repeat: no-repeat;
   background-position: left top;
-  background-size: 100% 100%;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .auth-form-container, .login-form, .register-form {

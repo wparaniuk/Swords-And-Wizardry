@@ -52,9 +52,7 @@ export const CharacterCreate = (props) => {
       gold: gold,
       health_points: hp,
       race: "None",
-      weapon: "None",
-      new_level: new_level,
-      old_level: old_level,
+      equipment: [],
       uid: user.uid,
     }).then(function() {
       //Character created

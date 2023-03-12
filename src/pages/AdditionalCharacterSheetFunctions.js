@@ -20,7 +20,7 @@ export const calculateLevel = (exp, charClass) => {
   return level;
 }
 
-export const calculateHealth = (currentHealth, charClass, exp) => {
+export const calculateHealth = (currentHealth, charClass, exp, conMod) => {
 	const dices = LEVEL_MATRIX[charClass];
 	let result = 1;
 
@@ -30,12 +30,14 @@ export const calculateHealth = (currentHealth, charClass, exp) => {
 				const parts = dice.split('+');
 				for (let i = 0; i < parts[0]; i++) {
 					result += Math.floor(Math.random() * 6) + 1;
+          result += conMod;
 				}
 				result += parseInt(parts[1]);
 			}
 			else {
 				for (let i = 0; i < dice; i++) {
 					result += Math.floor(Math.random() * 6) + 1;
+          result += conMod;
 				}
 			}
     }

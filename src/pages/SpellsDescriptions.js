@@ -1,3 +1,7 @@
+export const showSpellDesc = (spellName) => {
+    return desc[spellName];
+}
+
 const desc = {
     "Leczenie (zadawanie) lekkich ran":
     `Poziom czaru: K1
@@ -967,8 +971,4 @@ const desc = {
     W promieniu 240 stóp od miejsca, w które zostało
     rzucone zaklęcie, ginie do 2k8 stworzeń z mniej niż 7
     Kostkami.`
-}
-
-export const showSpellDesc = (spellName) => {
-    return desc[spellName];
 }

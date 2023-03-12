@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { calculateHealth } from './AdditionalCharacterSheetFunctions.js'
+import { calculateHealth, calculateModifier } from './AdditionalCharacterSheetFunctions.js'
 
 const Dropdown = ({ options, value, onChange }) => {
   return (
@@ -20,7 +20,7 @@ export const ChooseClassRace = (props) => {
   const [charRace, setCharRace] = useState('Człowiek');
   const [charData, setCharData] = useState(props.data.data);
   const classes = ['Wojownik', 'Kapłan', 'Mag'];
-  const races = ['Człowiek', 'Elf', 'Karsnolud', 'Niziołek'];
+  const races = ['Człowiek', 'Elf', 'Krasnolud', 'Niziołek'];
   const { charisma = 0, condition = 0, dexterity = 0, inteligence = 0, strenght = 0, wisdom = 0 } = props.data.data;
 
   useEffect(() => {
@@ -41,8 +41,15 @@ export const ChooseClassRace = (props) => {
   };
 
   const handleClick = () => {
-    const health = calculateHealth(0, charClass, 0);
+    const health = calculateHealth(0, charClass, 0, calculateModifier(condition));
     charData.health_points = health
+    if (charData.class === 'Mag' || charData.class === 'Kapłan')
+    {
+      if (charData.race === 'Niziołek' || charData.race === 'Krasnolud'){
+        alert('Krasnolud i Niziołek nie mogą być klasą magiczną.');
+        return;
+      }
+    }
     props.handleDataChange(charData);
   };
 
