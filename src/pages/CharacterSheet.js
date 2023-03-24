@@ -29,13 +29,15 @@ export const CharacterSheet = (props) => {
     };
   }, [myRef]);
 
-  const handleRemoveItem = (index) => {
-    const myArray = charData.equipment
+  //Handle remove item after pressing "---" sign on list eg. in equipment
+  const handleRemoveItem = (index, field_in_firebase) => {
+    const myArray = charData[field_in_firebase]
     const newArray = myArray.slice(0, index).concat(myArray.slice(index + 1));
-    charData.equipment = newArray
+    charData[field_in_firebase] = newArray
     props.handleDataChange(charData);
   };
 
+  //Hide modal if clicked oitside div
   const handleOutsideClick = () => {
     setShowTextBox(false);
     setShowSpellbox(false);
@@ -43,6 +45,7 @@ export const CharacterSheet = (props) => {
     setNumbersOnly(false);
   };
 
+  //Handle data change on editable fields eg. HP or Gold
   const handleEditClick = (event, text) => {
     if (text) setNumbersOnly(true);
     else setNumbersOnly(false);
@@ -52,6 +55,7 @@ export const CharacterSheet = (props) => {
     setShowTextBox(true);
   };
 
+  //Show modal with spell description
   const handleShowSpellClick = (event, spellDesc) => {
     const { top, left } = event.target.getBoundingClientRect();
     setSelectedSpell(spellDesc);
@@ -59,6 +63,7 @@ export const CharacterSheet = (props) => {
     setTextBoxPosition({ top: top + window.scrollY, left });
   };
 
+  //Handle change values of textbox and/or check if it's numbers
   const handleChange = (e) => {
     if (numbersOnly) {
       const pattern = /^[0-9]*$/;
@@ -70,7 +75,8 @@ export const CharacterSheet = (props) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  //Handle submit data from form to firebase using props.handleDataChange()
+  const handleSubmit = (e) => { 
     e.preventDefault();
     if (value === '') return;
     if (Array.isArray(charData[fieldName])) {
@@ -183,7 +189,7 @@ export const CharacterSheet = (props) => {
           {
           charData.equipment.map((item, index) => (
             <span className="noBreak" key={index}>{item}
-            <svg onClick={() => handleRemoveItem(index)} fill="#ff0000" viewBox="-50 -50 450 500" height='20px'><path d="M459.313,229.648c0,22.201-17.992,40.199-40.205,40.199H40.181c-11.094,0-21.14-4.498-28.416-11.774 C4.495,250.808,0,240.76,0,229.66c-0.006-22.204,17.992-40.199,40.202-40.193h378.936 C441.333,189.472,459.308,207.456,459.313,229.648z"></path></svg>
+            <svg onClick={() => handleRemoveItem(index, "equipment")} fill="#ff0000" viewBox="-50 -50 450 500" height='20px'><path d="M459.313,229.648c0,22.201-17.992,40.199-40.205,40.199H40.181c-11.094,0-21.14-4.498-28.416-11.774 C4.495,250.808,0,240.76,0,229.66c-0.006-22.204,17.992-40.199,40.202-40.193h378.936 C441.333,189.472,459.308,207.456,459.313,229.648z"></path></svg>
             </span>
           ))
           }
@@ -219,7 +225,16 @@ export const CharacterSheet = (props) => {
       )}
 
         <div className="column border1">
-          <span>Inne:</span>
+        <span className="noBreak" onClick={(event) => handleEditClick(event, false)} value='other'>Inne:
+          <svg value='other' fill="#00ff00" viewBox="0 0 20 20" height='20px'><path value='other' d="M11 17C11 17.5523 11.4477 18 12 18C12.5523 18 13 17.5523 13 17V13H17C17.5523 13 18 12.5523 18 12C18 11.4477 17.5523 11 17 11H13V7C13 6.44771 12.5523 6 12 6C11.4477 6 11 6.44771 11 7V11H7C6.44772 11 6 11.4477 6 12C6 12.5523 6.44772 13 7 13H11V17Z"></path></svg>
+          </span>
+          {
+          charData.other.map((item_other, index_other) => (
+            <span className="" key={index_other}>{item_other}
+            <svg onClick={() => handleRemoveItem(index_other, "other")} fill="#ff0000" viewBox="-50 -120 550 500" height='20px'><path d="M459.313,229.648c0,22.201-17.992,40.199-40.205,40.199H40.181c-11.094,0-21.14-4.498-28.416-11.774 C4.495,250.808,0,240.76,0,229.66c-0.006-22.204,17.992-40.199,40.202-40.193h378.936 C441.333,189.472,459.308,207.456,459.313,229.648z"></path></svg>
+            </span>
+          ))
+          }
         </div>
       </div>
 

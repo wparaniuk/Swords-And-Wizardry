@@ -53,6 +53,7 @@ export const CharacterCreate = (props) => {
       health_points: hp,
       race: "None",
       equipment: [],
+      other: [],
       uid: user.uid,
     }).then(function() {
       //Character created
