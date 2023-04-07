@@ -52,6 +52,7 @@ export const CharacterCreate = (props) => {
       gold: gold,
       health_points: hp,
       race: "None",
+      language: ["Powrzechny"],
       equipment: [],
       other: [],
       uid: user.uid,
