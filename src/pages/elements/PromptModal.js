@@ -1,6 +1,6 @@
 import React from "react";
 
-function PromptModal({ message, onYes, onNo, textBoxPosition }){
+function PromptModal({ message, onYes, onNo }){
 	const handleYesClick = () => {
     onYes();
   };
@@ -8,14 +8,19 @@ function PromptModal({ message, onYes, onNo, textBoxPosition }){
   const handleNoClick = () => {
     onNo();
   };
+	const pageHeight = document.documentElement.scrollHeight;
 		return (
-			<div className="promptModalContainer">
+			<div className="promptModalContainer"
+			style={{
+				height: pageHeight
+			}}>
 				<div
 				className="promptModal"
 				style={{
 					position: "absolute",
-					top: textBoxPosition.top + 30,
-					left: textBoxPosition.left,
+					top: "50vh",
+					left: "50%",
+					transform: "translate(-50%, -50%)",
 				}}
 				>
 					<span>Czy na pewno chcesz usunąć: <strong style={{color: "red"}}>{message}</strong></span>

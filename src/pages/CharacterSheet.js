@@ -36,8 +36,6 @@ export const CharacterSheet = (props) => {
   //Handle remove item after pressing "-" sign on list eg. in equipment
   const handleRemoveItem = async (event, index, field_in_firebase) => {
     try {
-      const { top, left } = event.target.getBoundingClientRect();
-      setTextBoxPosition({ top: top + window.scrollY, left });
 
       const userResponse = await new Promise((resolve, reject) => {
         setShowPromptModal(true);
