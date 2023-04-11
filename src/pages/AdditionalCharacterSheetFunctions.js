@@ -1,10 +1,20 @@
 import { LEVEL_MATRIX } from "./ExperienceTables";
 
 export const calculateModifier = (value) => {
-	//Values below 9 and above 12 will have modifier
-  if (value < 9) return -1;
-  else if (value > 12) return +1;
-  else return 0;
+  //-3 dla wartości atrybutu 3 i mniej
+  //-2 dla wartości atrybutu 4-6
+  //-1 dla wartości atrybutu 7-9
+  //0 dla wartości atrybutu 10-11
+  //+1 dla wartości atrybutu 12-14
+  //+2 dla wartości atrybutu 15-17
+  //+3 dla wartości atrybutu 18 i więcej
+  if (value <= 3) return "-3";
+  else if (value >= 4 && value <= 6) return "-2";
+  else if (value >= 7 && value <= 9) return "-1";
+  else if (value >= 10 && value <= 11) return "0";
+  else if (value >= 12 && value <= 14) return "+1";
+  else if (value >= 15 && value <= 17) return "+2";
+  else if (value >= 18) return "+3";
 }
 
 export const calculateLevel = (exp, charClass) => {
