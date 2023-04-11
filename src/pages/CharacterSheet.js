@@ -228,16 +228,25 @@ export const CharacterSheet = (props) => {
       <div className="row space-evenly">
         <div className="column border1">
           <span>Zaklęcia:</span>
-          {
-            charData.class === 'Kapłan' || charData.class === 'Mag' ? (
-              SPELLS_LIST[charData.class][addFun.calculateLevel(charData.experience, charData.class)-1].map((spell, index) => (
-                <span key={index} onClick={
-                  (event) => 
-                  handleShowSpellClick(event, showSpellDesc(spell))
-                }>{spell}</span>
-              ))
-            ) : null
-          }
+          {charData.class === 'Kapłan' || charData.class === 'Mag' ? (
+            (() => {
+              let level = addFun.calculateLevel(charData.experience, charData.class)-1
+              if (level === 0) {
+                return SPELLS_LIST[charData.class][0].map((spell, index) => (
+                  <span key={index} onClick={(event) => handleShowSpellClick(event, showSpellDesc(spell))}>{spell}</span>
+                ))
+              }
+              else if (level >= 1) {
+                const level1Spells = SPELLS_LIST[charData.class][0];
+                const level2Spells = SPELLS_LIST[charData.class][1];
+
+                return [...level1Spells, ...level2Spells].map((spell, index) => (
+                  <span key={index} onClick={(event) => handleShowSpellClick(event, showSpellDesc(spell))}>{spell}</span>
+                ));
+              }
+              console.log("spells learnt: " + charData.learn_spells); 
+            })()
+          ) : null}
         </div>
 
         {showSpellbox && (

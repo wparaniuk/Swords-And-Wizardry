@@ -57,7 +57,7 @@ export const calculateHealth = (currentHealth, charClass, exp, conMod) => {
 }
 
 export const calculateRO = (exp, charClass) => {
-	if (charClass == 'None') return 1;
+	if (charClass == 'None') return 15;
   const levels = LEVEL_MATRIX[charClass];
   let ro = 1;
 
@@ -70,7 +70,7 @@ export const calculateRO = (exp, charClass) => {
 }
 
 export const calculateAtk = (exp, charClass) => {
-	if (charClass == 'None') return 1;
+	if (charClass == 'None') return 0;
   const levels = LEVEL_MATRIX[charClass];
   let attack = 1;
 
