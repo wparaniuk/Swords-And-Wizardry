@@ -230,21 +230,21 @@ export const CharacterSheet = (props) => {
           <span>Zaklęcia:</span>
           {charData.class === 'Kapłan' || charData.class === 'Mag' ? (
             (() => {
-              let level = addFun.calculateLevel(charData.experience, charData.class)-1
+              const level = addFun.calculateLevel(charData.experience, charData.class)-1;
+              const level1Spells = SPELLS_LIST[charData.class][0];
+              const level2Spells = SPELLS_LIST[charData.class][1];
+              const  spellsList = [];
+              if (charData.learnt_spells != "") spellsList.push(charData.learnt_spells);
               if (level === 0) {
-                return SPELLS_LIST[charData.class][0].map((spell, index) => (
+                return [...level1Spells, ...spellsList].map((spell, index) => (
                   <span key={index} onClick={(event) => handleShowSpellClick(event, showSpellDesc(spell))}>{spell}</span>
                 ))
               }
               else if (level >= 1) {
-                const level1Spells = SPELLS_LIST[charData.class][0];
-                const level2Spells = SPELLS_LIST[charData.class][1];
-
-                return [...level1Spells, ...level2Spells].map((spell, index) => (
+                return [...level1Spells, ...level2Spells, ...spellsList].map((spell, index) => (
                   <span key={index} onClick={(event) => handleShowSpellClick(event, showSpellDesc(spell))}>{spell}</span>
                 ));
               }
-              console.log("spells learnt: " + charData.learn_spells); 
             })()
           ) : null}
         </div>
