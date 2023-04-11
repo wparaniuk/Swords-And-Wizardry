@@ -26,6 +26,9 @@ export const calculateLevel = (exp, charClass) => {
     if (exp >= minExp && exp < maxExp) {
       level = lvl;
     }
+    else if (exp > 999999) {
+      return level = 10;
+    }
   });
   return level;
 }
